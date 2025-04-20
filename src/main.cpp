@@ -56,14 +56,22 @@ struct whisper_model_loader_wrapper {
 };
 
 struct whisper_context_wrapper whisper_init_from_file_wrapper(const char * path_model){
-    struct whisper_context * ctx = whisper_init_from_file(path_model);
+    whisper_context_params cparams = whisper_context_default_params();
+    cparams.use_gpu = true;
+    cparams.flash_attn = true;
+    cparams.gpu_device = 0;
+    struct whisper_context * ctx = whisper_init_from_file_with_params(path_model, cparams);
     struct whisper_context_wrapper ctw_w;
     ctw_w.ptr = ctx;
     return ctw_w;
 }
 
 struct whisper_context_wrapper whisper_init_from_buffer_wrapper(void * buffer, size_t buffer_size){
-    struct whisper_context * ctx = whisper_init_from_buffer(buffer, buffer_size);
+    whisper_context_params cparams = whisper_context_default_params();
+    cparams.use_gpu = true;
+    cparams.flash_attn = true;
+    cparams.gpu_device = 0;
+    struct whisper_context * ctx = whisper_init_from_buffer_with_params(buffer, buffer_size, cparams);
     struct whisper_context_wrapper ctw_w;
     ctw_w.ptr = ctx;
     return ctw_w;

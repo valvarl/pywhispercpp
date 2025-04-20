@@ -192,7 +192,7 @@ PARAMS_SCHEMA = {  # as exactly presented in whisper.cpp
             'type': str,
             'description': 'for auto-detection, set to None, "" or "auto"',
             'options': None,
-            'default': ""
+            'default': "auto"
     },
     'suppress_blank': {
             'type': bool,
