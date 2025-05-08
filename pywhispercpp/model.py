@@ -49,6 +49,9 @@ class Segment:
 
     def __repr__(self):
         return str(self)
+    
+    def get_text(self):
+        return self.text
 
 
 class Model:

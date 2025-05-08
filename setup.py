@@ -134,7 +134,7 @@ class CMakeBuild(build_ext):
             archs = re.findall(r"-arch (\S+)", os.environ.get("ARCHFLAGS", ""))
             if archs:
                 cmake_args += ["-DCMAKE_OSX_ARCHITECTURES={}".format(";".join(archs))]
-            
+
         # Set CMAKE_BUILD_PARALLEL_LEVEL to control the parallel build level
         # across all generators.
         if "CMAKE_BUILD_PARALLEL_LEVEL" not in os.environ:
@@ -157,7 +157,7 @@ class CMakeBuild(build_ext):
         subprocess.run(
             ["cmake", "--build", ".", *build_args], cwd=build_temp, check=True
         )
-    
+ 
         # store the dll folder in a global variable to use in repairwheel
         global dll_folder
         cfg = "Debug" if self.debug else "Release"
@@ -167,7 +167,7 @@ class CMakeBuild(build_ext):
 
     def copy_extensions_to_source(self):
         super().copy_extensions_to_source()
-       
+
         if self.editable_mode:
             build_lib = Path(self.build_lib)
             for ext in self.extensions:
@@ -199,7 +199,7 @@ class RepairWheel(bdist_wheel):
         print("dll_folder in repairwheel",dll_folder) 
         print("Files in dll_folder:", *Path(dll_folder).glob('*'))
         #build\temp.win-amd64-cpython-311\Release\_pywhispercpp\bin\Release\whisper.dll
-       
+
         wheel_path = next(Path(self.dist_dir).glob(f"{self.distribution.get_name()}*.whl"))
         # Create a temporary directory for the repaired wheel
         import tempfile
